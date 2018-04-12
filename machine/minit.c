@@ -22,6 +22,10 @@ static void mstatus_init()
   write_csr(scounteren, -1);
   write_csr(mcounteren, -1);
 
+  // Enable XS
+  if (supports_extension('X'))
+    set_csr(mstatus, (MSTATUS_XS & (MSTATUS_XS >> 1)));
+
   // Enable software interrupts
   write_csr(mie, MIP_MSIP);
 
